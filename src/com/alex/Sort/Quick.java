@@ -1,9 +1,11 @@
 package com.alex.Sort;
 
+import com.alex.Common.ArrayOps;
+
 import java.util.Arrays;
 
 /**
- * Created by Administrator on 2016/9/28.
+ * Created by AlexC on 2016/9/28.
  */
 public class Quick {
     public static void sort(int[] array) {
@@ -25,21 +27,12 @@ public class Quick {
         for (int i = left; i < right; i++) {
             if (a[i] <= key) {
                 ++j;
-                swap(a, i, j);
+                ArrayOps.swap(a, i, j);
             }
         }
         ++j;
-        swap(a, j, right);
+        ArrayOps.swap(a, j, right);
         return j;
-    }
-
-    private static void swap(int[] a, int i, int j) {
-        if (i == j) {
-            return;
-        }
-        int tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
     }
 
     public static void main(String[] args) {

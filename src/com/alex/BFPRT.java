@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Created by Administrator on 2016/9/26.
+ * Created by AlexC on 2016/9/26.
  */
 public class BFPRT {
     /**
@@ -78,8 +78,10 @@ public class BFPRT {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
+        int size;
+        try (Scanner sc = new Scanner(System.in)) {
+            size = sc.nextInt();
+        }
         int[] array = new int[size];
         Random r = new Random();
         for (int i = 0; i < size; i++) {

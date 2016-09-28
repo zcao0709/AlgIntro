@@ -3,8 +3,9 @@ package com.alex.Sort;
 import java.util.Arrays;
 
 /**
- * Created by Administrator on 2016/9/26.
+ * Created by AlexC on 2016/9/26.
  */
+// Section 2.1
 public class Insertion {
     public static void sort(int[] arr) {
         sort(arr, 0, arr.length);
