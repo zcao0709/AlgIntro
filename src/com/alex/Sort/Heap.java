@@ -28,9 +28,11 @@ public class Heap {
     private static void maxHeapify(int[] a, int idx, int size) {
         int left = idx * 2 + 1;
         int right = idx * 2 + 2;
-        int max = idx;
+        int max;
         if (left < size && a[left] > a[idx]) {
             max = left;
+        } else {
+            max = idx;
         }
         if (right < size && a[right] > a[max]) {
             max = right;
@@ -40,13 +42,16 @@ public class Heap {
             maxHeapify(a, max, size);
         }
     }
+
     private static void maxHeapifyNR(int[] a, int idx, int size) {
         int left = idx * 2 + 1;
-        int right = idx * 2 + 2;
-        int max = idx;
+        int right = left + 1;
+        int max;
         while (left < size) {
             if (left < size && a[left] > a[idx]) {
                 max = left;
+            } else {
+                max = idx;
             }
             if (right < size && a[right] > a[max]) {
                 max = right;
@@ -57,7 +62,7 @@ public class Heap {
             ArrayOps.swap(a, max, idx);
             idx = max;
             left = idx * 2 + 1;
-            right = idx * 2 + 2;
+            right = left + 1;
         }
     }
 
