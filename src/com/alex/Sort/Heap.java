@@ -11,7 +11,8 @@ import java.util.Scanner;
  */
 public class Heap {
     public static void sort(int[] array) {
-        buildMaxHeap(array);
+        buildMaxHeapByInsert(array);
+        System.out.println(Arrays.toString(array));
         int size = array.length;
         while (size > 1) {
             ArrayOps.swap(array, 0, --size);
@@ -22,6 +23,24 @@ public class Heap {
     private static void buildMaxHeap(int[] a) {
         for (int i = a.length/2-1; i >= 0; i--) {
             maxHeapifyNR(a, i, a.length);
+        }
+    }
+
+    private static void buildMaxHeapByInsert(int[] a) {
+        for (int i = 1; i < a.length; i++) {
+            heapInsert(a, i);
+        }
+    }
+
+    private static void heapInsert(int[] a, int idx) {
+        while (idx != 0) {
+            int parent = (idx - 1) / 2;
+            if (a[idx] > a[parent]) {
+                ArrayOps.swap(a, idx, parent);
+                idx = parent;
+            } else {
+                break;
+            }
         }
     }
 
