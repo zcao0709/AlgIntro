@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * Created by Administrator on 2016/9/28.
  */
+// Exercise 6.5.9
 public class MergeKSortedArray {
     private static class ArrayElem {
         int value;
