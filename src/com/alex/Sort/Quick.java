@@ -7,6 +7,7 @@ import java.util.Arrays;
 /**
  * Created by AlexC on 2016/9/28.
  */
+// Chapter 7
 public class Quick {
     public static void sort(int[] array) {
         sort(array, 0, array.length-1);
