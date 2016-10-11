@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by AlexC on 2016/9/28.
  */
-// Section 6.4
+// Chapter 6
 public class Heap {
     public static void sort(int[] array) {
         buildMaxHeapByInsert(array);
