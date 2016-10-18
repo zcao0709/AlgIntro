@@ -1,4 +1,4 @@
-package com.alex;
+package com.alex.tree;
 
 import java.util.*;
 
