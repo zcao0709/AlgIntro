@@ -1,4 +1,4 @@
-package com.alex.DivideConquer;
+package com.alex.divideconquer;
 
 import java.util.Arrays;
 

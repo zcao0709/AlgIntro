@@ -1,6 +1,6 @@
-package com.alex.Sort;
+package com.alex.sort;
 
-import com.alex.Common.ArrayOps;
+import com.alex.common.ArrayOps;
 
 import java.util.Arrays;
 import java.util.Random;

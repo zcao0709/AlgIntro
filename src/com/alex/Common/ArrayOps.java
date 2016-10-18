@@ -1,4 +1,4 @@
-package com.alex.Common;
+package com.alex.common;
 
 /**
  * Created by AlexC on 2016/9/28.

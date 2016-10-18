@@ -1,6 +1,6 @@
 package com.alex;
 
-import com.alex.Sort.Insertion;
+import com.alex.sort.Insertion;
 
 import java.util.Arrays;
 import java.util.Random;

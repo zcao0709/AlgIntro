@@ -1,8 +1,6 @@
 package com.alex;
 
-import com.alex.Common.ArrayOps;
-import com.alex.Sort.Insertion;
-import com.alex.Sort.Merge;
+import com.alex.sort.Merge;
 
 import java.util.*;
 
