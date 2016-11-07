@@ -3,7 +3,7 @@ package com.alex.tree;
 /**
  * Created by Administrator on 2016/10/25.
  */
-// Chapter 14
+// Section 14.1
 public class RankedRedBlackTree {
     private enum Color {BLACK, RED};
     private static class Node {
@@ -237,9 +237,12 @@ public class RankedRedBlackTree {
             y.left.parent = y;
             y.color = z.color;
         }
-        while (origParent != nil) {
-            origParent.size--;
-            origParent = origParent.parent;
+//        while (origParent != nil) {
+//            origParent.size--;
+//            origParent = origParent.parent;
+//        }
+        for (Node i = x.parent; i != nil; i = i.parent) {
+            i.size = i.left.size + i.right.size + 1;
         }
         if (origColor == Color.BLACK) {
             fixAfterDelete(x);
@@ -364,9 +367,12 @@ public class RankedRedBlackTree {
    }
 
     public int select(int rank) {
-        return keyOrException(select_nr(root, rank));
+        return keyOrException(select(root, rank));
     }
     private Node select(Node node, int rank) {
+        if (node == nil) {
+            return nil;
+        }
         int r = node.left.size + 1;
         if (r == rank)
             return node;
@@ -393,25 +399,24 @@ public class RankedRedBlackTree {
     }
 
     public static void main(String[] args) {
-//        int[] values1 = new int[]{41, 38, 31, 12, 19, 8};
-//        RankedRedBlackTree rbt = new RankedRedBlackTree();
-//        for (int v : values1) {
-//            rbt.insert(v);
-//            rbt.printTree();
-//        }
-//        int[] values2 = new int[]{8, 12, 19, 31, 38, 41};
-//        for (int v : values2) {
-//            rbt.remove(v);
-//            rbt.printTree();
-//        }
-        int[] array = new int[] {2, 3, 8, 6, 1};
+        int n = 20;
+        int m = 2;
         RankedRedBlackTree tree = new RankedRedBlackTree();
-        int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            tree.insert(array[i]);
-            count += (i + 1 - tree.rank(array[i]));
+        for (int j = 1; j <= n; j++) {
+            tree.insert(j);
         }
-        System.out.println(count);
-        System.out.println(tree.select(6));
+        int k = n;
+        int j = m;
+        while (k > 1) {
+            int x = tree.select(j);
+            System.out.print(x + " ");
+            tree.remove(x);
+            k--;
+            j = ((j + m - 2) % k) + 1;
+//            j = ((j + m - 1) % k); // j cannot be zero
+            System.out.println("next: " + j);
+//            tree.printTree();
+        }
+        System.out.println(tree.select(1));
     }
 }

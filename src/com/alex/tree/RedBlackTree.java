@@ -41,6 +41,7 @@ public class RedBlackTree {
     }
 
     public void printTree() {
+        System.out.println("START:");
         inOrder4Print(root, 0, "H");
         System.out.println();
     }
