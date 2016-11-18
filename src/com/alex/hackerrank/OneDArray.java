@@ -6,6 +6,7 @@ import java.util.Scanner;
 /**
  * Created by Administrator on 2016/11/7.
  */
+// https://www.hackerrank.com/challenges/java-1d-array
 public class OneDArray {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
