@@ -1,4 +1,4 @@
-package com.alex.Sort;
+package com.alex.sort;
 
 import java.util.Arrays;
 
