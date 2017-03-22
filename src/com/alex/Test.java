@@ -1,5 +1,8 @@
 package com.alex;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 /**
  * Created by Administrator on 2016/9/26.
  */
@@ -39,5 +42,18 @@ public class Test {
 
     static int dist(int x, int y, int ox, int oy) {
         return Math.abs(x-ox) + Math.abs(y-oy);
+    }
+
+    public static void main(String[] args) {
+        Main obj2=null;
+        try{
+            FileInputStream fis=new FileInputStream("dataObject.out");
+            ObjectInputStream ois=new ObjectInputStream(fis);
+            obj2=(Main)ois.readObject();
+            System.out.println(obj2.getI());
+            System.out.println(obj2.getWord());
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 }
