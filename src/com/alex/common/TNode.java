@@ -16,6 +16,11 @@ public class TNode {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return value + "/L:" + (left == null ? "null" : left.value) + "-R:" + (right == null ? "null" : right.value);
+    }
+
     public static TNode create(int num) {
         Random r = new Random();
         Queue<TNode> q = new LinkedList<>();

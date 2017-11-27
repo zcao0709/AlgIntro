@@ -149,12 +149,125 @@ public class BinTree {
         System.out.println();
     }
 
+    public static int maxRoute(TNode head) {
+        if (head == null) {
+            return 0;
+        }
+        int[] maxHalf = new int[1];
+        return maxRoute(head, maxHalf);
+    }
+    // return the longest route in tree rooted by node
+    // maxHalf saves the longest route from some leaf to node
+    private static int maxRoute(TNode node, int[] maxHalf) {
+        if (node == null) {
+            maxHalf[0] = 0;
+            return 0;
+        }
+        int lmax = maxRoute(node.left, maxHalf);
+        int lhalf = maxHalf[0];
+        int rmax = maxRoute(node.right, maxHalf);
+        int rhalf = maxHalf[0];
+        int selfMax = lhalf + rhalf + 1;
+        maxHalf[0] = Math.max(lhalf, rhalf) + 1;
+        return Math.max(selfMax, Math.max(lmax, rmax));
+    }
+
+    public static boolean isBST(TNode head) {
+        if (head == null) {
+            return true;
+        }
+        return isBST(head, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    private static boolean isBST(TNode node, int min, int max) {
+        if (node == null) {
+            return true;
+        }
+        if (node.value < min || node.value > max) {
+            return false;
+        }
+        if (isBST(node.left, min, node.value-1) && isBST(node.right, node.value+1, max)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static int findLongestRouteWithSum(TNode head, int sum) {
+        if (head == null) {
+            return 0;
+        }
+        Map<Integer, Integer> historySum = new HashMap<>();
+        historySum.put(0, 0);
+        return findLongestRouteWithSum(head, sum, 0, 0, 1, historySum);
+    }
+    private static int findLongestRouteWithSum(TNode head, int sum, int lastSum, int longest, int level, Map<Integer, Integer> historySum) {
+        if (head == null) {
+            return longest;
+        }
+        int curSum = lastSum + head.value;
+        if (historySum.containsKey(curSum - sum)) {
+            longest = Math.max(longest, level - historySum.get(curSum - sum));
+        }
+        if (!historySum.containsKey(curSum)) {
+            historySum.put(curSum, level);
+        }
+        longest = findLongestRouteWithSum(head.left, sum, curSum, longest, level + 1, historySum);
+        longest = findLongestRouteWithSum(head.right, sum, curSum, longest, level + 1, historySum);
+        if (level == historySum.get(curSum)) {
+            historySum.remove(curSum);
+        }
+        return longest;
+    }
+
+    public static TNode biggestBST(TNode head) {
+        if (head == null) {
+            return null;
+        }
+        // num, min, max
+        int[] stat = new int[3];
+        return biggestBST(head, stat);
+    }
+    public static TNode biggestBST(TNode node, int[] stat) {
+        if (node == null) {
+            stat[0] = 0;
+            stat[1] = Integer.MAX_VALUE;
+            stat[2] = Integer.MIN_VALUE;
+            return null;
+        }
+        TNode lbst = biggestBST(node.left, stat);
+        int lsize = stat[0];
+        int lmin = stat[1];
+        int lmax = stat[2];
+
+        TNode rbst = biggestBST(node.right, stat);
+        int rsize = stat[0];
+        int rmin = stat[1];
+        int rmax = stat[2];
+
+        stat[1] = Math.min(node.value, lmin);
+        stat[2] = Math.max(node.value, rmax);
+        if (lbst == node.left && rbst == node.right && node.value > lmax && node.value < rmin) {
+            stat[0] = lsize + rsize + 1;
+            System.out.println(node.toString() + ", " + Arrays.toString(stat));
+            return node;
+        }
+        if (lsize > rsize) {
+            stat[0] = lsize;
+            System.out.println(lbst.toString() + ", " + Arrays.toString(stat));
+            return lbst;
+        } else {
+            stat[0] = rsize;
+            System.out.println(rbst.toString() + ", " + Arrays.toString(stat));
+            return rbst;
+        }
+    }
+
     public static void main(String[] args) {
-        TNode head = TNode.create(10);
+        TNode head = TNode.create(7);
         printByLevel(head);
-        printZigzag(head);
-        printPreOrder(head);
-        printInOrder(head);
-        printPostOrder(head);
+//        printZigzag(head);
+//        printPreOrder(head);
+//        printInOrder(head);
+//        printPostOrder(head);
+        System.out.println(biggestBST(head));
     }
 }
