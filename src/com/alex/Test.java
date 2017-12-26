@@ -108,15 +108,18 @@ public class Test {
 //            }
 //        }
 //        System.out.println(Arrays.toString(arr));
-        int len = 205;
-        System.out.printf("%02x\n", len);
-        byte bg = (byte) (len & 0xFF00);
-        byte lt = (byte) (len & 0xFF);
-        System.out.printf("%02x\n", lt);
-        System.out.printf("%02x\n", bg);
+//        int len = 205;
+//        System.out.printf("%02x\n", len);
+//        byte bg = (byte) (len & 0xFF00);
+//        byte lt = (byte) (len & 0xFF);
+//        System.out.printf("%02x\n", lt);
+//        System.out.printf("%02x\n", bg);
+//
+//        int i = (bg << 8) + (lt & 0xFF);
+//        System.out.printf("%02x\n", bg << 8);
+//        System.out.printf("%02x\n", i);
+        byte b = (byte) 0xFF;
+        System.out.println((int)b);
 
-        int i = (bg << 8) + (lt & 0xFF);
-        System.out.printf("%02x\n", bg << 8);
-        System.out.printf("%02x\n", i);
     }
 }
