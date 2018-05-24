@@ -86,7 +86,6 @@ public class Heap {
         }
     }
 
-
     public static void main(String[] args) {
         int size;
         try (Scanner sc = new Scanner(System.in)) {

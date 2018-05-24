@@ -28,7 +28,30 @@ public class Insertion {
 
     public static void main(String[] args) {
         int[] array = new int[] {1, -2, 3, 10, -4, 7, 2, -5};
-        sort(array);
+        insertSort(array);
         System.out.println(Arrays.toString(array));
+    }
+
+    public static void insertSort(int[] arr) {
+        if (arr.length <= 1) {
+            return;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] >= arr[i - 1]) {
+                continue;
+            }
+            for (int j = i - 1; j >= 0; j--) {
+                if (arr[i] < arr[j]) {
+                    if (j == 0 || arr[i] >= arr[j - 1]) {
+                        int t = arr[i];
+                        for (int k = i; k >= j + 1; k--) {
+                            arr[k] = arr[k - 1];
+                        }
+                        arr[j] = t;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

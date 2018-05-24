@@ -38,6 +38,8 @@ public class School {
     private static List<String> one = new LinkedList<>();
 
     public static void mutate() {
+        ThreadLocal<Long> a = new ThreadLocal<>();
+        a.set(1L);
         if (one.size() == schools.size()) {
             int val = 0;
             for (Word w : words) {

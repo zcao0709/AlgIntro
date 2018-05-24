@@ -7,6 +7,7 @@ import java.util.Scanner;
 /**
  * Created by caozhennan on 2017/12/26.
  */
+// http://www.cnblogs.com/sunqim16/p/7737679.html
 public class Jishui {
 
     public static int jishui(int[] heights) {

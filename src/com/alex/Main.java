@@ -32,6 +32,10 @@ public class Main implements Serializable {
 //                return;
 //            }
 //        }
+        int i = Integer.MIN_VALUE;
+        System.out.printf("%d, %x%n", i, i);
+        int j = Math.abs(Integer.MIN_VALUE);
+        System.out.printf("%d, %x%n", j, j);
         Main object = new Main();
         object.setWord("123");
         object.setI(5);

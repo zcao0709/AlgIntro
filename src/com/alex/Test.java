@@ -118,8 +118,19 @@ public class Test {
 //        int i = (bg << 8) + (lt & 0xFF);
 //        System.out.printf("%02x\n", bg << 8);
 //        System.out.printf("%02x\n", i);
-        byte b = (byte) 0xFF;
-        System.out.println((int)b);
-
+//        byte b = (byte) 0xFF;
+//        System.out.println((int)b);
+//        String s = "search|user";
+//        String[] ss = s.split("\\|");
+//        for (String f : ss) {
+//            System.out.println(f);
+//        }
+        long diff = 366*24*60*60*1000L;
+        long endts = 1521561600000L;
+        long startts = endts - diff;
+        System.out.println(diff);
+        System.out.println(startts);
+        System.out.println(endts);
+        System.out.println(Long.MAX_VALUE);
     }
 }
