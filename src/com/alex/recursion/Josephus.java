@@ -1,4 +1,4 @@
-package com.alex.misc;
+package com.alex.recursion;
 
 import java.util.Scanner;
 
