@@ -22,12 +22,29 @@ public class ArrayOps {
         try (Scanner sc = new Scanner(System.in)) {
             size = sc.nextInt();
         }
-        int[] array = new int[size];
+        int[] arr = new int[size];
         Random r = new Random();
         for (int i = 0; i < size; i++) {
-            array[i] = r.nextInt(100);
+            arr[i] = r.nextInt(100);
         }
-        System.out.println("init: " + Arrays.toString(array));
-        return array;
+        System.out.println("init: " + Arrays.toString(arr));
+        return arr;
+    }
+
+    public static int[] randomDistinct(int k, int max) {
+        int[] arr = new int[max];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        Random r = new Random();
+        for (int i = 0; i < k; i++) {
+            swap(arr, i, i + r.nextInt(arr.length - i));
+        }
+        int[] brr = new int[k];
+        for (int i = 0; i < k; i++) {
+            brr[i] = arr[i];
+        }
+        System.out.println("init: " + Arrays.toString(brr));
+        return brr;
     }
 }

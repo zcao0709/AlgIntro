@@ -2,6 +2,8 @@ package com.alex;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by caozhennan on 2018/2/14.
@@ -47,6 +49,9 @@ public class ThreadLocalTest {
             e.printStackTrace();
         }
 
+        ReadWriteLock rw = new ReentrantReadWriteLock();
+        rw.readLock().lock();
+        rw.writeLock().lock();
         System.out.println("changing");
 //        s.add("test_again");
         s = new HashSet<>();
