@@ -1,11 +1,11 @@
-package com.alex.misc;
+package com.alex.tree;
 
 import java.util.Scanner;
 
 /**
  * Created by caozhennan on 2018/2/8.
  */
-public class treePreMid2Post {
+public class TreePreMid2Post {
 
     public static String convert(String pre, String mid) {
         StringBuilder sb = new StringBuilder(pre.length());

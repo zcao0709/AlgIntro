@@ -31,6 +31,19 @@ public class ArrayOps {
         return arr;
     }
 
+    public static int[] inputIt() {
+        int size;
+        try (Scanner sc = new Scanner(System.in)) {
+            size = sc.nextInt();
+            int[] arr = new int[size];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = sc.nextInt();
+            }
+            System.out.println("init: " + Arrays.toString(arr));
+            return arr;
+        }
+    }
+
     public static int[] randomDistinct(int k, int max) {
         int[] arr = new int[max];
         for (int i = 0; i < arr.length; i++) {

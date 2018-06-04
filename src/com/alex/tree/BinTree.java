@@ -1,4 +1,4 @@
-package com.alex.misc;
+package com.alex.tree;
 
 import com.alex.common.TNode;
 
