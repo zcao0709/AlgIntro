@@ -6,6 +6,12 @@ import java.util.Scanner;
 /**
  * Created by caozhennan on 2017/11/27.
  */
+/*
+给定数组arr，arr中所有的值都为正数且不重复。每个值代表一种货币，每种货币可以使用任意张，
+再给定一个整数aim代表要找的钱数，求组成aim的最少货币数。
+生成行数为arr.length，列数为ait+1的动态规划表dp，dp[i][j]的含义是：
+可以任意使用arr[0..i]货币的情况下，组成j所需的最小张数。
+ */
 public class moneyChange {
 
     public static int moneyChange(int[] unit, int aim) {
