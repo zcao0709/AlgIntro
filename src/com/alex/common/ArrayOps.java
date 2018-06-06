@@ -60,4 +60,15 @@ public class ArrayOps {
         System.out.println("init: " + Arrays.toString(brr));
         return brr;
     }
+
+    public static void print(int[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void print(int[][] arr) {
+        for (int[] row : arr) {
+            print(row);
+        }
+        System.out.println();
+    }
 }

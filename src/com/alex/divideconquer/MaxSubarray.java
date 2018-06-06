@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by AlexC on 2016/9/26.
  */
 // Section 4.1
-public class maxSubarray {
+public class MaxSubarray {
     public static long[] maxSubarrayDC(int[] array) {
         return maxSubarrayDC(array, 0, array.length-1);
     }

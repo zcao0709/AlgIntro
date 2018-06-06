@@ -12,7 +12,7 @@ import java.util.Scanner;
 生成行数为arr.length，列数为ait+1的动态规划表dp，dp[i][j]的含义是：
 可以任意使用arr[0..i]货币的情况下，组成j所需的最小张数。
  */
-public class moneyChange {
+public class MoneyChange {
 
     public static int moneyChange(int[] unit, int aim) {
         if (unit == null || unit.length == 0 || aim < 0) {
