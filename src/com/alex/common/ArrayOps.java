@@ -17,6 +17,15 @@ public class ArrayOps {
         a[j] = tmp;
     }
 
+    public static void swap(char[] a, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        char tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+
     public static int[] randomIt() {
         int size;
         try (Scanner sc = new Scanner(System.in)) {
@@ -59,6 +68,13 @@ public class ArrayOps {
         }
         System.out.println("init: " + Arrays.toString(brr));
         return brr;
+    }
+
+    public static void reverse(char[] arr, int start, int end) {
+        int mid = (start + end) >>> 1;
+        for (int i = start; i < mid; i++) {
+            swap(arr, i, end-1-(i-start));
+        }
     }
 
     public static void print(int[] arr) {
