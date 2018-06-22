@@ -17,23 +17,23 @@ public class Heap {
         int size = array.length;
         while (size > 1) {
             ArrayOps.swap(array, 0, --size);
-            maxHeapifyNR(array, 0, size);
+            shiftDownNR(array, 0, size);
         }
     }
 
     private static void buildMaxHeap(int[] a) {
         for (int i = a.length/2-1; i >= 0; i--) {
-            maxHeapifyNR(a, i, a.length);
+            shiftDownNR(a, i, a.length);
         }
     }
 
     private static void buildMaxHeapByInsert(int[] a) {
         for (int i = 1; i < a.length; i++) {
-            heapInsert(a, i);
+            shiftUp(a, i);
         }
     }
 
-    private static void heapInsert(int[] a, int idx) {
+    private static void shiftUp(int[] a, int idx) {
         while (idx != 0) {
             int parent = (idx - 1) / 2;
             if (a[idx] > a[parent]) {
@@ -45,7 +45,7 @@ public class Heap {
         }
     }
 
-    private static void maxHeapify(int[] a, int idx, int size) {
+    private static void shiftDown(int[] a, int idx, int size) {
         int left = idx * 2 + 1;
         int right = idx * 2 + 2;
         int max;
@@ -59,11 +59,11 @@ public class Heap {
         }
         if (max != idx) {
             ArrayOps.swap(a, max, idx);
-            maxHeapify(a, max, size);
+            shiftDown(a, max, size);
         }
     }
 
-    private static void maxHeapifyNR(int[] a, int idx, int size) {
+    private static void shiftDownNR(int[] a, int idx, int size) {
         int left = idx * 2 + 1;
         int right = left + 1;
         int max;

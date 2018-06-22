@@ -30,6 +30,54 @@ public class MaxSubarrayWithSum {
         return ret;
     }
 
+    public static int max2(int[] arr, long target) {
+
+        if(arr == null || arr.length == 0 || target < 0) {
+            return 0;
+        }
+
+        int len = arr.length;
+        //System.out.println("len = " + len);
+
+        int maxLenth = 0;
+        long sumValue = 0;
+        for(int i = 0; i < len; i++) {
+            sumValue += arr[i];
+        }
+        if(sumValue == target) {
+            return len;
+        }
+
+        long[] sumArr = new long[len];
+        sumArr[0] = sumValue;
+        int tmpsum = 0;
+        for(int i = 1; i < len; i++) {
+            tmpsum += arr[i-1];
+            sumArr[i] = sumValue - tmpsum;
+            if(sumArr[i] ==  target) {
+                maxLenth = Math.max(maxLenth, len - i);
+//                return maxLenth;
+            }
+        }
+
+        System.out.println(Arrays.toString(sumArr));
+        System.out.println("maxLenth = " + maxLenth);
+
+        for(int j = len -1; j > 0; j--) {
+            for(int i = 0; i < j; i++) {
+                sumArr[i] -= sumArr[j];
+                if(sumArr[i] == target) {
+                    //System.out.println("j = " + j + ", i = " + i);
+                    maxLenth = Math.max(maxLenth, j - i);
+                    return maxLenth;
+                }
+            }
+
+        }
+
+        return maxLenth;
+    }
+
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
             int size = sc.nextInt();
@@ -39,7 +87,7 @@ public class MaxSubarrayWithSum {
             }
             System.out.println("init: " + Arrays.toString(arr));
             int target = sc.nextInt();
-            System.out.println(max(arr, target));
+            System.out.println(max2(arr, target));
         }
     }
 }

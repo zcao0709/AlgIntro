@@ -6,7 +6,7 @@ import com.alex.common.Math;
 /**
  * Created by caozhennan on 2018/6/9.
  */
-public class shift {
+public class Shift {
     public static void shift1(char[] chars, int n) {
         for (int i = 0; i < Math.gcd(chars.length, n); i++) {
             char tmp = chars[i];

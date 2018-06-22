@@ -1,7 +1,5 @@
 package com.alex;
 
-import java.util.Arrays;
-
 /**
  * Created by Administrator on 2016/10/9.
  */

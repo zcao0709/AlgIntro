@@ -3,6 +3,7 @@ package com.alex.sort;
 import com.alex.common.ArrayOps;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by AlexC on 2016/9/28.
@@ -17,7 +18,7 @@ public class Quick {
         if (left >= right) {
             return;
         }
-        int p = partition(array, left, right);
+        int p = partitionHoare(array, left, right);
         sort(array, left, p - 1);
         sort(array, p + 1, right);
     }
@@ -36,10 +37,40 @@ public class Quick {
         return j;
     }
 
+    // programming pearls P120
+    private static int partitionHoare(int[] a, int left, int right) {
+        ArrayOps.swap(a, left, left + new Random().nextInt(right-left+1));
+        int key = a[left];
+        int i = left;
+        int j = right + 1;
+        while (true) {
+            do {
+                i++;
+            } while (i <= right && a[i] < key);
+            do {
+                j--;
+            } while (a[j] > key);
+            // when i == j, must proceed to next loop
+            // so the next commented code is wrong
+//            if (i < j) {
+//                ArrayOps.swap(a, i, j);
+//            } else {
+//                break;
+//            }
+            if (i > j) {
+                break;
+            }
+            ArrayOps.swap(a, i, j);
+        }
+        ArrayOps.swap(a, j, left);
+        return j;
+    }
+
     public static void main(String[] args) {
-//        int[] array = new int[] {1, -2, 3, 10, -4, 7, 2, -5};
+//        int[] array = new int[] {1, -2, 3, 1, 7, 2, -5};
         int[] array = ArrayOps.randomIt();
-        quickSort(array, 0, array.length-1);
+//        quickSort(array, 0, array.length-1);
+        sort(array, 0, array.length-1);
         System.out.println(Arrays.toString(array));
     }
 
@@ -62,8 +93,7 @@ public class Quick {
             if(arr[j] >= arr[position]) {
                 hasBigNums = true;
                 continue;
-            }
-            else {
+            } else {
                 if(hasBigNums) {
                     ArrayOps.swap(arr, i, j); // swap the smaller element with the first bigger element
                 }
