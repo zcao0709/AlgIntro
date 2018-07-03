@@ -52,6 +52,9 @@ public class NOutM {
         ms.add(3);
         ms.add(4);
         ms.add(5);
+        ms.add(6);
+        ms.add(7);
+        ms.add(8);
         nOutM(ms, 5);
     }
 }

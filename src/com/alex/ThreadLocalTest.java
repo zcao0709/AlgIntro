@@ -49,12 +49,9 @@ public class ThreadLocalTest {
             e.printStackTrace();
         }
 
-        ReadWriteLock rw = new ReentrantReadWriteLock();
-        rw.readLock().lock();
-        rw.writeLock().lock();
         System.out.println("changing");
-//        s.add("test_again");
-        s = new HashSet<>();
+        s.add("test_again");
+//        s = new HashSet<>();
         System.out.println("changed");
 
         try {

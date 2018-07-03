@@ -18,13 +18,7 @@ public class Node {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Node n = this;
-        while (n != null) {
-            sb.append(n.value).append(" ");
-            n = n.next;
-        }
-        return sb.toString();
+        return value + " -> ";
     }
 
     public static Node create(int num) {
