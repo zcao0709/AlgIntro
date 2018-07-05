@@ -1,6 +1,7 @@
 package com.alex.misc;
 
 import com.alex.common.Node;
+import com.alex.common.SingleList;
 
 import java.util.Scanner;
 
@@ -66,13 +67,13 @@ public class PartitionList {
     }
 
     public static void main(String[] args) {
-        Node node = Node.create(10);
-        System.out.println(node.toString());
+        SingleList list = SingleList.create(10);
+        System.out.println(list);
 
         Scanner sc = new Scanner(System.in);
         int pivot = sc.nextInt();
 
-        System.out.println(partition(node, pivot));
+        System.out.println(partition(list.head, pivot));
     }
 
 }

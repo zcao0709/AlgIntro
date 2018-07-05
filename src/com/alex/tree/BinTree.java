@@ -1,5 +1,6 @@
 package com.alex.tree;
 
+import com.alex.common.BinaryTree;
 import com.alex.common.TNode;
 
 import java.util.*;
@@ -224,7 +225,9 @@ public class BinTree {
         }
         // num, min, max
         int[] stat = new int[3];
-        return biggestBST(head, stat);
+        TNode node = biggestBST(head, stat);
+        System.out.println(Arrays.toString(stat));
+        return node;
     }
     public static TNode biggestBST(TNode node, int[] stat) {
         if (node == null) {
@@ -262,7 +265,8 @@ public class BinTree {
     }
 
     public static void main(String[] args) {
-        TNode head = TNode.create(7);
+        BinaryTree tree = BinaryTree.valueOf(17);
+        TNode head = tree.root;
         printByLevel(head);
 //        printZigzag(head);
 //        printPreOrder(head);

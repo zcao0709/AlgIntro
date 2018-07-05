@@ -1,5 +1,6 @@
 package com.alex.tree;
 
+import com.alex.common.BinaryTree;
 import com.alex.common.TNode;
 
 import java.util.HashMap;
@@ -43,7 +44,8 @@ public class LongestPathWIthSumLimit {
     }
 
     public static void main(String[] args) {
-        TNode head = TNode.create(17);
+        BinaryTree tree = BinaryTree.valueOf(17);
+        TNode head = tree.root;
         BinTree.printByLevel(head);
 
         try (Scanner sc = new Scanner(System.in)) {
