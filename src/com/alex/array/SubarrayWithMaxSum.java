@@ -78,10 +78,8 @@ public class SubarrayWithMaxSum {
     private static int[] max3(int[] arr, int left, int right) {
         if (left > right) {
             return new int[]{Integer.MIN_VALUE, -1, -1};
+//            return new int[]{0, -1, -1};
         } else if (left == right) {
-//            if (arr[left] < 0) {
-//                return new int[]{Integer.MIN_VALUE, -1, -1};
-//            } else {
                 return new int[]{arr[left], left, right};
 //            }
         }
@@ -89,23 +87,27 @@ public class SubarrayWithMaxSum {
         int[] lefthalf = max3(arr, left, mid);
         int[] righthalf = max3(arr, mid+1, right);
 
+        int[] withmid = new int[]{Integer.MIN_VALUE, -1, -1};
+//        int[] withmid = new int[]{0, -1, -1};
         int sum = 0;
-        int[] withmid = new int[]{Integer.MIN_VALUE, mid+1, mid};
+        int leftSum = Integer.MIN_VALUE;
         for (int i = mid; i >= 0; i--) {
             sum += arr[i];
-            if (sum > withmid[0]) {
-                withmid[0] = sum;
+            if (sum >= leftSum) {
+                leftSum = sum;
                 withmid[1] = i;
             }
         }
-        sum = withmid[0];
+        sum = 0;
+        int rightSum = Integer.MIN_VALUE;
         for (int i = mid+1; i <= right; i++) {
             sum += arr[i];
-            if (sum > withmid[0]) {
-                withmid[0] = sum;
+            if (sum >= rightSum) {
+                rightSum = sum;
                 withmid[2] = i;
             }
         }
+        withmid[0] = leftSum + rightSum;
         if (withmid[0] > lefthalf[0] && withmid[0] > righthalf[0]) {
             return withmid;
         } else if (lefthalf[0] > righthalf[0]) {
@@ -140,8 +142,8 @@ public class SubarrayWithMaxSum {
     }
 
     public static void main(String[] args) {
-        int[] arr = {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
+        int[] arr = {-31, -41, -59, -26, -53, -58, -97, -93, -23, -84};
 //        int[] arr = {-1, -41, -9, 26, -53, -8, -7, -93, -23, 84};
-        System.out.println(Arrays.toString(max4(arr)));
+        System.out.println(Arrays.toString(max3(arr)));
     }
 }

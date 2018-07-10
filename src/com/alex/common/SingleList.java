@@ -25,6 +25,58 @@ public class SingleList {
         size++;
     }
 
+    public boolean remove(int value) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null && curr.value != value) {
+            prev = curr;
+            curr = curr.next;
+        }
+        if (curr == null) {
+            return false;
+        } else {
+            unlink(prev, curr);
+            return true;
+        }
+    }
+
+    public Node getFirst(int value) {
+        Node n = head;
+        while (n != null && n.value != value) {
+            n = n.next;
+        }
+        return n;
+    }
+
+    public int peek() {
+        return head.value;
+    }
+
+    public void push(int value) {
+        add(value);
+    }
+
+    public int pop() {
+        int v = peek();
+        head = head.next;
+        return v;
+    }
+
+    private void unlink(Node prev, Node node) {
+        Node next = node.next;
+
+        if (prev == null) {
+            head = next;
+        } else {
+            prev.next = next;
+        }
+
+        if (next == null) {
+            tail = prev;
+        }
+        node.next = null;
+    }
+
     public void reverse() {
         if (head == null) {
             return;
