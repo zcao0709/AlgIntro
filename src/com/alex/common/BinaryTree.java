@@ -40,6 +40,37 @@ public class BinaryTree {
         }
     }
 
+    public void inorder() {
+        inorder(root);
+    }
+
+    private void inorder(TNode node) {
+        if (node == null) {
+            return;
+        }
+        inorder(node.left);
+        System.out.println(node.value);
+        inorder(node.right);
+    }
+
+    public void inorderNR() {
+        if (root == null) {
+            return;
+        }
+        LinkedList<TNode> s = new LinkedList<>();
+        TNode curr = root;
+        while (!s.isEmpty() || curr != null) {
+            if (curr != null) {
+                s.addFirst(curr);
+                curr = curr.left;
+            } else {
+                curr = s.removeFirst();
+                System.out.println(curr.value);
+                curr = curr.right;
+            }
+        }
+    }
+
     private static int distinctRandom(Set<Integer> set, Random r, int limit) {
         int i = r.nextInt(limit);
         while (set.contains(i)) {
@@ -99,6 +130,67 @@ public class BinaryTree {
         return sb;
     }
 
+    private static TNode getMaxSortTreeRoot(TNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        if (isSortTree(root)) {
+            return root;
+        }
+
+        TNode leftRoot = getMaxSortTreeRoot(root.left);
+        int leftCount = getTNodeCounts(leftRoot);
+
+        TNode rightRoot = getMaxSortTreeRoot(root.right);
+        int rightCount = getTNodeCounts(rightRoot);
+
+        if (leftCount > rightCount) {
+            return leftRoot;
+        } else {
+            return rightRoot;
+        }
+
+    }
+
+    private static int getTNodeCounts(TNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (isLeaf(root)) {
+            return 1;
+        }
+        return 1 + getTNodeCounts(root.left) + getTNodeCounts(root.right);
+    }
+
+    private static boolean isSortTree(TNode input) {
+        if (isLeaf(input)) {
+            return true;
+        }
+        if (input.left != null && input.value > input.left.value) {
+            if (input.right == null) {
+                return isSortTree(input.left);
+            } else if (input.value < input.right.value) {
+                return isSortTree(input.left) && isSortTree(input.right);
+            } else {
+                return false;
+            }
+        } else if (input.left == null) {
+            return isSortTree(input.right);
+        } else {
+            // input.value <= input.left.value
+            return false;
+        }
+    }
+
+    private static boolean isLeaf(TNode node) {
+        if (node == null || (node.left == null && node.right == null)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public TNode maxSubBST() {
         int[] aux = new int[3];
         TNode n = maxSubBST(root, aux);
@@ -121,11 +213,8 @@ public class BinaryTree {
         TNode right = maxSubBST(node.right, auxr);
 
         TNode ret;
-        if (left == null && right == null) {
-            ret = node;
-
-        } else if (left != null && node.left == left && node.value > auxl[2] &&
-                right != null && node.right == right && node.value < auxr[1]) {
+        if ((left == null || node.left == left && node.value > auxl[2]) &&
+                (right == null || node.right == right && node.value < auxr[1])) {
             aux[0] = auxl[0] + auxr[0] + 1;
             aux[1] = auxl[1];
             aux[2] = auxr[2];
@@ -142,6 +231,7 @@ public class BinaryTree {
             aux[1] = auxr[1];
             aux[2] = auxr[2];
             ret = right;
+
         }
         System.out.println(node + ", " + Arrays.toString(aux));
         return ret;
@@ -218,12 +308,17 @@ public class BinaryTree {
 
     public static void main(String[] args) {
 //        BinaryTree tree = BinaryTree.valueOf(20);
-        BinaryTree tree = BinaryTree.valueOf(new int[]{7, 4, 11});//, 2, 6, 8, 14, 5, 9, 1, 10, 12, 3, 13, 15});
+        BinaryTree tree = BinaryTree.valueOf(new int[]{7, 4});
+//        BinaryTree tree = BinaryTree.valueOf(new int[]{7, 4, 11, 2, 6, 8, 14, 5, 9, 1, 10, 12, 3, 13, 15});
         tree.printTree();
 
-//        System.out.println(tree.maxSubBST());
+        System.out.println("1:" + tree.maxSubBST());
+        System.out.println("2:" + tree.getMaxSortTreeRoot(tree.root));
 //        System.out.println();
 //        System.out.println(tree.maxBST());
-        System.out.println(tree.isBST());
+//        System.out.println(tree.isBST());
+//        tree.inorder();
+//        System.out.println();
+//        tree.inorderNR();
     }
 }

@@ -70,6 +70,6 @@ public class MaxSubarrayWithSumLimit {
 
     public static void main(String[] args) {
         int[] a = ArrayOps.inputIt();
-        System.out.println(maxWithTree(a, 2));
+        System.out.println(maxWithTree(a, -2));
     }
 }

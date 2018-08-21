@@ -3,11 +3,13 @@ package com.alex.recursion;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by caozhennan on 2018/5/16.
  */
 public class NOutM {
+    public static volatile String s = "";
     public static void nOutM(List<Integer> ms, int n) {
         List<Integer> ns = new LinkedList<>();
         nOutM2(ms, 0, ns, n);

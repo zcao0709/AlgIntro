@@ -221,11 +221,15 @@ public class SingleList {
     }
 
     public static SingleList create(int num) {
+        return create(num, 100);
+    }
+
+    public static SingleList create(int num, int limit) {
         SingleList list = new SingleList();
 
         Random r = new Random();
         for (int i = 0; i < num; i++) {
-            list.add(r.nextInt(100));
+            list.add(r.nextInt(limit));
         }
         return list;
     }
