@@ -86,5 +86,53 @@ public class SpireMatrix {
             System.out.println(Arrays.toString(matrix[i]));
         }
         System.out.println(Arrays.toString(spire(matrix)));
+        print(matrix);
+    }
+
+    private static void print(int[][] source) {
+        if (source == null || source.length <= 0) {
+            return;
+        }
+        int row = source.length;
+        int colum = source[0].length;
+        if(row == 1) {
+            for(int i = 0; i < colum; i++) {
+                System.out.print(i);
+                System.out.print(" ");
+            }
+            System.out.println();
+            return;
+        }
+        if(colum == 1) {
+            for(int i = row-1; i>=0; i++) {
+                System.out.print(source[i][0]);
+                System.out.print(" ");
+            }
+            System.out.println();
+            return;
+        }
+        for(int r = row-1; r >= 0; r--) {
+            System.out.print(source[r][0]);
+            System.out.print(" ");
+        }
+        for(int c = 1; c < colum; c++) {
+            System.out.print(source[0][c]);
+            System.out.print(" ");
+        }
+        for(int r = 1; r < row; r++) {
+            System.out.print(source[r][colum-1]);
+            System.out.print(" ");
+        }
+        for(int c = colum-2; c >= 1; c--) {
+            System.out.print(source[row-1][c]);
+            System.out.print(" ");
+        }
+        int[][] tmp = new int[row-2][colum-2];
+        for(int i = 1; i < row-1; i++) {
+            for(int j = 1; j < colum-1; j++) {
+                tmp[i-1][j-1] = source[i][j];
+            }
+        }
+        print(tmp);
     }
 }
