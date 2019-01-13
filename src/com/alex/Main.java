@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main implements Serializable {
 
@@ -25,6 +27,11 @@ public class Main implements Serializable {
         return word;
     }
 
+    static class MyTask extends TimerTask {
+        public void run() {
+            System.out.println("test");
+        }
+    }
     public static void main(String[] args) {
 //        for (int i = 3; ; i += 2) {
 //            if (isValid(63 * i)) {
@@ -32,6 +39,8 @@ public class Main implements Serializable {
 //                return;
 //            }
 //        }
+        Timer t = new Timer();
+        t.schedule(new MyTask(), 0, 1000);
         int i = Integer.MIN_VALUE;
         System.out.printf("%d, %x%n", i, i);
         int j = Math.abs(Integer.MIN_VALUE);

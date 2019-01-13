@@ -28,7 +28,7 @@ public class Insertion {
 
     public static void main(String[] args) {
         int[] array = new int[] {1, -2, 3, 10, -4, 7, 2, -5};
-        insertSort(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 

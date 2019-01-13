@@ -18,15 +18,17 @@ public class Quick {
         if (left >= right) {
             return;
         }
-        int p = partitionHoare(array, left, right);
+        int p = partitionBasic(array, left, right);
         sort(array, left, p - 1);
         sort(array, p + 1, right);
     }
 
-    private static int partition(int[] a, int left, int right) {
+    // algorithms introduction
+    private static int partitionBasic(int[] a, int left, int right) {
         int key = a[right];
         int j = left - 1;
         for (int i = left; i < right; i++) {
+            // invariant: arr[left...j] <= target && arr[j+1...right] > target
             if (a[i] <= key) {
                 ++j;
                 ArrayOps.swap(a, i, j);
@@ -37,8 +39,23 @@ public class Quick {
         return j;
     }
 
+    // programming pearls P119
+    private static int partitionLomuto(int[] a, int left, int right) {
+        int key = a[left];
+        int j = left;
+        for (int i = left + 1; i <= right; i++) {
+            // invariant: arr[left...j] < target && arr[j+1...right] >= target
+            if (a[i] < key) {
+                ++j;
+                ArrayOps.swap(a, i, j);
+            }
+        }
+        ArrayOps.swap(a, j, left);
+        return j;
+    }
+
     // programming pearls P120
-    private static int partitionHoare(int[] a, int left, int right) {
+    private static int partition2(int[] a, int left, int right) {
         ArrayOps.swap(a, left, left + new Random().nextInt(right-left+1));
         int key = a[left];
         int i = left;
@@ -50,13 +67,6 @@ public class Quick {
             do {
                 j--;
             } while (a[j] > key);
-            // when i == j, must proceed to next loop
-            // so the next commented code is wrong
-//            if (i < j) {
-//                ArrayOps.swap(a, i, j);
-//            } else {
-//                break;
-//            }
             if (i > j) {
                 break;
             }
@@ -66,12 +76,40 @@ public class Quick {
         return j;
     }
 
+    // programming pearls P123 Problem11
+    public static void sortFatPartition(int[] a, int left, int right) {
+        if (left >= right)
+            return;
+        int key = a[left];
+        int j = left;
+        int k = left;
+        for (int i = left+1; i <= right; i++) {
+            // invariant: arr[left...j] < target && arr[j...k] == target && arr[k+1...right] > target
+            if (a[i] < key) {
+                ++j;
+                ArrayOps.swap(a, i, j);
+                ++k;
+                if (k > j) {
+                    ArrayOps.swap(a, i, k);
+                }
+            } else if (a[i] == key) {
+                ++k;
+                ArrayOps.swap(a, i, k);
+            }
+        }
+        ArrayOps.swap(a, j, left);
+        System.out.printf("%s, left=%d, j=%d, k=%d, right=%d\n", Arrays.toString(a), left, j, k, right);
+        sortFatPartition(a, left, j-1);
+        sortFatPartition(a, k+1, right);
+    }
+
     public static void main(String[] args) {
 //        int[] array = new int[] {1, -2, 3, 1, 7, 2, -5};
+//        int[] array = new int[] {1, -1, 1, 1, 2, 1, 1};
         int[] array = ArrayOps.randomIt();
 //        quickSort(array, 0, array.length-1);
-        sort(array, 0, array.length-1);
-        System.out.println(Arrays.toString(array));
+        sortFatPartition(array, 0, array.length-1);
+        System.out.println("result: " + Arrays.toString(array));
     }
 
     public static void quickSort(int[] arr, int from, int to) {

@@ -20,9 +20,20 @@ public class Bubble {
         }
     }
 
+    public static void sort2(int[] arr) {
+        for(int i = 0; i < arr.length-1; i++) {
+            for(int j = arr.length-1; j > i; j--) {
+                if(arr[j] < arr[j-1]) {
+                    ArrayOps.swap(arr, j, j - 1);
+                }
+            }
+            System.out.println(Arrays.toString(arr));
+        }
+    }
+
     public static void main(String[] args) {
         int[] array = ArrayOps.randomIt();
-        sort(array);
+        sort2(array);
         System.out.println(Arrays.toString(array));
     }
 }

@@ -24,12 +24,13 @@ public class binarySearch {
         return -1;
     }
 
+    // programming pearls Pxxx
     public static int searchLeft(int[] arr, int target) {
         if (arr == null || arr.length == 0) {
             return -1;
         }
         int left = -1;
-        int right = arr.length - 1;
+        int right = arr.length;// - 1;
         while (left + 1 != right) {
             // invariant: arr[left] < target && arr[right] >= target && left < right
             int mid = (left + right) >>> 1;
@@ -98,9 +99,9 @@ public class binarySearch {
 
     public static void main(String[] args) {
 //        int[] arr = {1, 1, 3, 4, 5, 6, 7};
-        int[] arr = {1, 1, 1};
+        int[] arr = {-1, 1, 1, 1};
         System.out.println(search(arr, 1));
-        System.out.println(searchLeft(arr, 1));
+        System.out.println(searchLeft(arr, -1));
         System.out.println(binarySearch(arr, 1));
         System.out.println(searchRight(arr, 1));
     }
