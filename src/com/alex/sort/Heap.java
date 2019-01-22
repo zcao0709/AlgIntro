@@ -33,6 +33,7 @@ public class Heap {
         }
     }
 
+    // when a[0...n-1] is a heap, shiftUp make a[0...n] a heap
     private static void shiftUp(int[] a, int idx) {
         while (idx != 0) {
             int parent = (idx - 1) / 2;
@@ -63,41 +64,29 @@ public class Heap {
         }
     }
 
+    // programming pearls P152
     private static void shiftDownNR(int[] a, int idx, int size) {
-        int left = idx * 2 + 1;
-        int right = left + 1;
-        int max;
-        while (left < size) {
-            if (left < size && a[left] > a[idx]) {
-                max = left;
-            } else {
-                max = idx;
-            }
-            if (right < size && a[right] > a[max]) {
-                max = right;
-            }
-            if (max == idx) {
+        while (true) {
+            int c = idx * 2 + 1;
+            if (c >= size) {
                 break;
             }
-            ArrayOps.swap(a, max, idx);
-            idx = max;
-            left = idx * 2 + 1;
-            right = left + 1;
+            if (c + 1 < size) {
+                if (a[c+1] > a[c]) {
+                    c++;
+                }
+            }
+            if (a[idx] >= a[c]) {
+                break;
+            }
+            ArrayOps.swap(a, idx, c);
+            idx = c;
         }
     }
 
     public static void main(String[] args) {
-        int size;
-        try (Scanner sc = new Scanner(System.in)) {
-            size = sc.nextInt();
-        }
-        int[] array = new int[size];
-        Random r = new Random();
-        for (int i = 0; i < size; i++) {
-            array[i] = r.nextInt(100);
-        }
-        System.out.println(Arrays.toString(array));
+        int[] array = ArrayOps.randomIt();
         sort(array);
-        System.out.println(Arrays.toString(array));
+        System.out.println("result: " + Arrays.toString(array));
     }
 }
