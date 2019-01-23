@@ -77,6 +77,13 @@ public class ArrayOps {
         }
     }
 
+    public static void shuffle(int[] arr) {
+        Random r = new Random();
+        for (int i = arr.length; i > 1; i--) {
+            ArrayOps.swap(arr, i-1, r.nextInt(i));
+        }
+    }
+
     public static void print(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }

@@ -46,19 +46,6 @@ public class BitVector {
         return v > 0 || v == Long.MIN_VALUE;
     }
 
-    public void sort(int[] arr) {
-        for (int n : arr) {
-            set(n);
-        }
-        System.out.println(toString());
-        int i = 0;
-        for (int n = 0; n < vector.length*UNIT; n++) {
-            if (test(n)) {
-                arr[i++] = n;
-            }
-        }
-    }
-
     private int vIndex(int bit) {
         return bit >> SHIFT; // bit / 64
     }
@@ -73,29 +60,15 @@ public class BitVector {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
-        Random r = new Random();
-        for (int i = arr.length; i > 1; i--) {
-            ArrayOps.swap(arr, i-1, r.nextInt(i));
-        }
-        System.out.printf("init: %s\n", Arrays.toString(arr));
-        BitVector bv = new BitVector(n-1);
-        bv.sort(arr);
-        System.out.println(bv.test(n-1));
-        System.out.printf("ret: %s\n", Arrays.toString(arr));
-//        bv.set(1);
-//        bv.set(0);
-//        System.out.println(bv);
-//        System.out.println(bv.test(0));
-//        System.out.println(bv.test(1));
-//        bv.clear(0);
-//        System.out.println(bv);
-//        System.out.println(bv.test(0));
-//        System.out.println(bv.test(1));
+        BitVector bv = new BitVector(100);
+        bv.set(0);
+        bv.set(1);
+        System.out.println(bv);
+        System.out.println(bv.test(0));
+        System.out.println(bv.test(1));
+        bv.clear(0);
+        System.out.println(bv);
+        System.out.println(bv.test(0));
+        System.out.println(bv.test(1));
     }
 }

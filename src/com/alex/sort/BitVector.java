@@ -3,6 +3,7 @@ package com.alex.sort;
 import com.alex.common.ArrayOps;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Created by caozhennan on 2018/5/27.
@@ -15,7 +16,7 @@ public class BitVector {
             bv.set(arr[i]);
         }
         int j = 0;
-        for (int i = 0; i < max; i++) {
+        for (int i = 0; i <= max; i++) {
             if (bv.test(i)) {
                 arr[j++] = i;
             }
@@ -23,8 +24,15 @@ public class BitVector {
     }
 
     public static void main(String[] args) {
-        int[] arr = ArrayOps.randomDistinct(10, 100);
-        sort(arr, 10, 100);
-        System.out.println(Arrays.toString(arr));
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        ArrayOps.shuffle(arr);
+        System.out.printf("init: %s\n", Arrays.toString(arr));
+        sort(arr, n, n-1);
+        System.out.printf("ret: %s\n", Arrays.toString(arr));
     }
 }
