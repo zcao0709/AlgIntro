@@ -5,6 +5,7 @@ package com.alex;
  */
 // Exercise 9.3.8
 public class TwoArrayMedian {
+
     public static int twoArrayMedian(int[] a, int[] b) {
         if (a.length != b.length) {
             throw new RuntimeException("different length");
