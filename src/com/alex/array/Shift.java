@@ -8,7 +8,9 @@ import com.alex.common.Math;
  */
 public class Shift {
     public static void shift1(char[] chars, int n) {
-        for (int i = 0; i < Math.gcd(chars.length, n); i++) {
+//        for (int i = 0; i < Math.gcd(chars.length, n); i++) {
+        int c = 0;
+        for (int i = 0; i < chars.length; i++) {
             char tmp = chars[i];
             int j = i;
             while (true) {
@@ -21,9 +23,15 @@ public class Shift {
                 }
                 System.out.println("move " + k + ":" + chars[k] + " to " + j + ":" + chars[j]);
                 chars[j] = chars[k];
+                c++;
+                System.out.println(i + ":" + new String(chars));
                 j = k;
             }
             chars[j] = tmp;
+            c++;
+            if (c == chars.length) {
+                break;
+            }
             System.out.println(i + ":" + new String(chars));
         }
     }
@@ -49,9 +57,13 @@ public class Shift {
     }
 
     public static void main(String[] args) {
-        String str = "abcdefghijk";
+        String str = "abcdefg";
         char[] chars = str.toCharArray();
-        shift2(chars, 3, 4);
+        shift1(chars, 3);
         System.out.println(new String(chars));
+//        str = "abcdefghijk";
+//        chars = str.toCharArray();
+//        shift2(chars, 3, 4);
+//        System.out.println(new String(chars));
     }
 }

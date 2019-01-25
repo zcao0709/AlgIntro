@@ -1,27 +1,29 @@
-package com.alex.misc;
-
-import com.alex.common.ArrayOps;
+package com.alex.common;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by caozhennan on 2018/5/26.
  */
+// programming pearls page5
 public class BitVector {
     private static final int UNIT = 64; // since long[] is used
     private static final int SHIFT = 6; // since 64 == 2^6
     private static final int MASK = 0x3F; // since 64 = 0x3F+1
     private long[] vector;
-    private int max;
 
+    // number ranges [0, max]
     public BitVector(int max) {
         if (max < 0) {
             throw new IllegalArgumentException();
         }
+//        int nbits = max + 1;
+//        int nlong = nbits / UNIT;
+//        if (nbits % UNIT != 0) {
+//            nlong++;
+//        }
+//        vector = new long[nlong];
         vector = new long[max / UNIT + 1];
-        this.max = max;
     }
 
     public void set(int bit) {
@@ -56,7 +58,7 @@ public class BitVector {
 
     @Override
     public String toString() {
-        return max + Arrays.toString(vector);
+        return Arrays.toString(vector);
     }
 
     public static void main(String[] args) {
