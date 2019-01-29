@@ -311,6 +311,26 @@ public class SubarrayWithMaxSum {
         return ret;
     }
 
+    public static int max3bNeg(int[] arr) {
+        return max3bNeg(arr, 0, arr.length-1)[0];
+    }
+
+    private static int[] max3bNeg(int[] arr, int left, int right) {
+        if (left == right) {
+            return new int[]{arr[left], arr[left], arr[left], arr[left]}; // max, left, right, total
+        }
+        int mid = (left + right) >>> 1;
+        int[] lefthalf = max3bNeg(arr, left, mid);
+        int[] righthalf = max3bNeg(arr, mid+1, right);
+        int[] ret = new int[4];
+        ret[0] = Math.max(lefthalf[2]+righthalf[1], Math.max(lefthalf[0], righthalf[0]));
+        ret[1] = Math.max(lefthalf[1], lefthalf[3]+righthalf[1]);
+        ret[2] = Math.max(righthalf[2], righthalf[3]+lefthalf[2]);
+        ret[3] = lefthalf[3] + righthalf[3];
+//        System.out.printf("%d~%d: %s\n", left, right, Arrays.toString(ret));
+        return ret;
+    }
+
     // programming pearls page81
     // dp
     public static int[] max4(int[] arr) {
@@ -372,12 +392,14 @@ public class SubarrayWithMaxSum {
         System.out.printf("max3b: %s\n", Arrays.toString(max3b(arr1)));
         System.out.printf("max3a: %s\n", max3aIndexless(arr1));
         System.out.printf("max3b: %s\n", max3bIndexless(arr1));
+        System.out.printf("max3bNeg: %s\n", max3bNeg(arr1));
         System.out.printf("max4: %d\n", max4Indexless(arr1));
         System.out.printf("max4Neg: %d\n", max4Neg(arr1));
         int[] arr2 = {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
         System.out.printf("max3b: %s\n", Arrays.toString(max3b(arr2)));
         System.out.printf("max3a: %d\n", max3aIndexless(arr2));
         System.out.printf("max3b: %d\n", max3bIndexless(arr2));
+        System.out.printf("max3bNeg: %s\n", max3bNeg(arr2));
         System.out.printf("max4: %d\n", max4Indexless(arr2));
         System.out.printf("max4Neg: %d\n", max4Neg(arr2));
 //        int[] arr3 = {-31, 41, 59};

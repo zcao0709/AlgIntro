@@ -3,7 +3,7 @@ package com.alex.divideconquer;
 /**
  * Created by caozhennan on 2018/6/22.
  */
-public class binarySearch {
+public class BinarySearch {
     public static int search(int[] arr, int target) {
         if (arr == null || arr.length == 0) {
             return -1;
