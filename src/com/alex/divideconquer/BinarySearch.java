@@ -24,7 +24,7 @@ public class BinarySearch {
         return -1;
     }
 
-    // programming pearls Pxxx
+    // programming pearls page93
     public static int searchLeft(int[] arr, int target) {
         if (arr == null || arr.length == 0) {
             return -1;
@@ -99,7 +99,8 @@ public class BinarySearch {
 
     public static void main(String[] args) {
 //        int[] arr = {1, 1, 3, 4, 5, 6, 7};
-        int[] arr = {-1, 1, 1, 1};
+//        int[] arr = {-1, 1, 1, 1};
+        int[] arr = {-1};
         System.out.println(search(arr, 1));
         System.out.println(searchLeft(arr, -1));
         System.out.println(binarySearch(arr, 1));
