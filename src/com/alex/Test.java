@@ -125,12 +125,45 @@ public class Test {
 //        for (String f : ss) {
 //            System.out.println(f);
 //        }
-        long diff = 366*24*60*60*1000L;
-        long endts = 1521561600000L;
-        long startts = endts - diff;
-        System.out.println(diff);
-        System.out.println(startts);
-        System.out.println(endts);
-        System.out.println(Long.MAX_VALUE);
+//        long diff = 366*24*60*60*1000L;
+//        long endts = 1521561600000L;
+//        long startts = endts - diff;
+//        System.out.println(diff);
+//        System.out.println(startts);
+//        System.out.println(endts);
+//        System.out.println(Long.MAX_VALUE);
+        List<Integer> route_waypoint_index_vec = new ArrayList<>();
+        route_waypoint_index_vec.add(0);
+        route_waypoint_index_vec.add(1);
+        route_waypoint_index_vec.add(2);
+        route_waypoint_index_vec.add(3);
+        List<List<Integer>> new_waypoint_set = new ArrayList<>();
+        List<Integer> new_waypoint = new ArrayList<>();
+        generate(route_waypoint_index_vec, 0, new_waypoint_set, new_waypoint);
+        System.out.printf("%d:%s\n", new_waypoint.size(), new_waypoint);
+        System.out.printf("%d:%s\n", new_waypoint_set.size(), new_waypoint_set);
+        for (List<Integer> list : new_waypoint_set) {
+            System.out.printf("%d:%s\n", list.size(), list);
+        }
+    }
+
+    private static void generate(List<Integer> route_waypoint_index_vec,
+                  int next_iter,
+                  List<List<Integer>> new_waypoint_set,
+                  List<Integer> new_waypoint) {
+        int od_count = 2;
+        if (new_waypoint.size() == od_count) {
+            List<Integer> clone = new ArrayList<>(new_waypoint.size());
+            for (Integer i : new_waypoint) {
+                clone.add(i);
+            }
+            new_waypoint_set.add(clone);
+            return;
+        }
+        for (int insert_iter = next_iter; insert_iter < route_waypoint_index_vec.size(); insert_iter++) {
+            new_waypoint.add(route_waypoint_index_vec.get(insert_iter));
+            generate(route_waypoint_index_vec, insert_iter + 1, new_waypoint_set, new_waypoint);
+            new_waypoint.remove(new_waypoint.size()-1);
+        }
     }
 }

@@ -18,6 +18,7 @@ public class Quick {
         if (left >= right) {
             return;
         }
+//        int p = partitionBasic(array, left, right);
         int p = partitionBasic(array, left, right);
         sort(array, left, p - 1);
         sort(array, p + 1, right);
@@ -104,11 +105,11 @@ public class Quick {
     }
 
     public static void main(String[] args) {
-//        int[] array = new int[] {1, -2, 3, 1, 7, 2, -5};
+        int[] array = new int[] {20, 7, 40, 9, 60, 11};
 //        int[] array = new int[] {1, -1, 1, 1, 2, 1, 1};
-        int[] array = ArrayOps.randomIt();
-//        quickSort(array, 0, array.length-1);
-        sortFatPartition(array, 0, array.length-1);
+//        int[] array = ArrayOps.randomIt();
+        sort(array, 0, array.length-1);
+//        sortFatPartition(array, 0, array.length-1);
         System.out.println("result: " + Arrays.toString(array));
     }
 
