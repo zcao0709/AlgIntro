@@ -1,11 +1,13 @@
 package com.alex;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Administrator on 2016/9/26.
@@ -132,19 +134,22 @@ public class Test {
 //        System.out.println(startts);
 //        System.out.println(endts);
 //        System.out.println(Long.MAX_VALUE);
-        List<Integer> route_waypoint_index_vec = new ArrayList<>();
-        route_waypoint_index_vec.add(0);
-        route_waypoint_index_vec.add(1);
-        route_waypoint_index_vec.add(2);
-        route_waypoint_index_vec.add(3);
-        List<List<Integer>> new_waypoint_set = new ArrayList<>();
-        List<Integer> new_waypoint = new ArrayList<>();
-        generate(route_waypoint_index_vec, 0, new_waypoint_set, new_waypoint);
-        System.out.printf("%d:%s\n", new_waypoint.size(), new_waypoint);
-        System.out.printf("%d:%s\n", new_waypoint_set.size(), new_waypoint_set);
-        for (List<Integer> list : new_waypoint_set) {
-            System.out.printf("%d:%s\n", list.size(), list);
-        }
+//        List<Integer> route_waypoint_index_vec = new ArrayList<>();
+//        route_waypoint_index_vec.add(0);
+//        route_waypoint_index_vec.add(1);
+//        route_waypoint_index_vec.add(2);
+//        route_waypoint_index_vec.add(3);
+//        List<List<Integer>> new_waypoint_set = new ArrayList<>();
+//        List<Integer> new_waypoint = new ArrayList<>();
+//        generate(route_waypoint_index_vec, 0, new_waypoint_set, new_waypoint);
+//        System.out.printf("%d:%s\n", new_waypoint.size(), new_waypoint);
+//        System.out.printf("%d:%s\n", new_waypoint_set.size(), new_waypoint_set);
+//        for (List<Integer> list : new_waypoint_set) {
+//            System.out.printf("%d:%s\n", list.size(), list);
+//        }
+//        testEnv();
+//        testExecutors();
+        testClassLoader();
     }
 
     private static void generate(List<Integer> route_waypoint_index_vec,
@@ -164,6 +169,36 @@ public class Test {
             new_waypoint.add(route_waypoint_index_vec.get(insert_iter));
             generate(route_waypoint_index_vec, insert_iter + 1, new_waypoint_set, new_waypoint);
             new_waypoint.remove(new_waypoint.size()-1);
+        }
+    }
+
+    private static void testEnv() {
+        Map<String, String> env = System.getenv();
+        for (String key : env.keySet()) {
+            System.out.printf("%s -> %s\n", key, env.get(key));
+        }
+    }
+
+    private static void testExecutors() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> System.out.println("running"), 1, 20, TimeUnit.SECONDS);
+        System.out.println("sleeping");
+        try {
+            Thread.sleep(40000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("done");
+        exec.shutdown();
+    }
+
+    private static void testClassLoader() {
+        URL url = Test.class.getClassLoader().getResource("");
+        if (url != null) {
+            System.out.println(new File(url.getFile()).getParent());
+            System.out.println(new File(url.getFile()).getAbsolutePath());
+        } else {
+            System.out.println("no URL");
         }
     }
 }
