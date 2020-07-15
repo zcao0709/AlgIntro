@@ -21,7 +21,7 @@ object Util {
     }
   }
 
-  def groupByKeyAndSortBySecondaryKey[K: Ordering : ClassTag, S : Ordering : ClassTag, V : ClassTag](pairRDD : RDD[((K, S), V)], partitions: Int): RDD[(K, List[(S, V)])] = {
+  def groupByKeyAndSortBySecondaryKey[K: Ordering: ClassTag, S: Ordering: ClassTag, V: ClassTag](pairRDD: RDD[((K, S), V)], partitions: Int): RDD[(K, List[(S, V)])] = {
     val partitioner = new PrimaryKeyPartitioner[K, S](partitions)
 
     implicit def ordering: Ordering[(K, S)] = Ordering.Tuple2

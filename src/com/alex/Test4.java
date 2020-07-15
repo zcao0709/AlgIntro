@@ -30,20 +30,10 @@ public class Test4 {
             ykeys[k] = new Point(x, y);
             ret[x][y] = 0;
         }
-        Comparator yComp = new Comparator<Point>() {
-            @Override
-            public int compare(Point p1, Point p2) {
-                return p1.y - p2.y;
-            }
-        };
+        Comparator<Point> yComp = Comparator.comparingInt(p -> p.y);
         Arrays.sort(ykeys, yComp);
 
-        Comparator xComp = new Comparator<Point>() {
-            @Override
-            public int compare(Point p1, Point p2) {
-                return p1.x - p2.x;
-            }
-        };
+        Comparator<Point> xComp = Comparator.comparingInt(p -> p.x);
         Arrays.sort(xkeys, xComp);
         for (int i = 0; i < ret.length; i++) {
             for (int j = 0; j < ret[0].length; j++) {

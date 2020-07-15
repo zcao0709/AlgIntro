@@ -11,7 +11,7 @@ import java.util.List;
 public class SchoolSort {
     public static void main(String[] args) {
         String[] array = new String[] { "A", "B", "C", "D", "E" };
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         getAllList(list, Arrays.asList(array), "");
         printMatchList(list);
     }
@@ -65,9 +65,7 @@ public class SchoolSort {
 
         if(right.length() == 2) {
             String rightS = right.toString();
-            if(rightS.indexOf(s.charAt(0)) >= 0 && rightS.indexOf(s.charAt(1)) >= 0) {
-                return true;
-            }
+            return rightS.indexOf(s.charAt(0)) >= 0 && rightS.indexOf(s.charAt(1)) >= 0;
         }
         return false;
     }

@@ -16,7 +16,7 @@ public class MaxSubarrayWithSumLimit {
     public static int maxWithTree(int[] arr, int limit) {
         int pre = 0;
         int sum = 0;
-        TreeMap<Integer, Integer> m = new TreeMap<>();
+        TreeMap<Integer, Integer> m = new TreeMap<>(); // sum -> index
         m.put(0, -1);
 
         int ret = 0;

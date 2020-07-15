@@ -3,6 +3,7 @@ package com.alex.misc;
 import java.util.Scanner;
 
 public class Palindrome {
+    // self revise the wechat' version, NOT a good version, abandoned
     public static String longestPalindrome(String str) {
         str = pre(str);
         System.out.println("pre: " + str);
@@ -13,16 +14,17 @@ public class Palindrome {
         int maxC = 0;
 
         for (int i = 0; i < str.length(); i++) {
-            if (i == 0 || i == str.length() - 1) {
-                continue;
-            }
+//            if (i == 0 || i == str.length() - 1) {
+//                continue;
+//            }
             int r = 0;
             if (i >= rightmostC + rightmostR) {
                 r = expand(str, i, 0);
             } else {
                 int mirror = rightmostC - (i - rightmostC);
                 if (radix[mirror] + i >= rightmostC + rightmostR) {
-                    r = expand(str, i, radix[mirror]);
+                    System.out.println("expanding: " + i + ", " + radix[mirror] + ", " + mirror);
+                    r = expand(str, i, rightmostC + rightmostR - i);
                 } else {
                     r = radix[mirror];
                 }
@@ -44,7 +46,6 @@ public class Palindrome {
     }
 
     private static int expand(String s, int center, int radix) {
-        System.out.println("expanding: " + center + ", " + radix);
         while (true) {
             int left = center - radix - 1;
             int right = center + radix + 1;
@@ -59,11 +60,9 @@ public class Palindrome {
 
     private static String pre(String s) {
         StringBuilder sb = new StringBuilder(s.length() * 2);
+        sb.append("#");
         for (int i = 0; i < s.length(); i++) {
-            sb.append(s.charAt(i));
-            if (i != s.length() - 1) {
-                sb.append('#');
-            }
+            sb.append(s.charAt(i)).append('#');
         }
         return sb.toString();
     }
@@ -82,19 +81,29 @@ public class Palindrome {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        System.out.println("result: " + longestPalindrome(str));
-        System.out.println("result: " + findLongestPlalindromeString(str));
+        String[] cases = {
+                "abcdcef",
+                "adaelele",
+                "cabadabae",
+                "aaaabcdefgfedcbaa",
+                "aaba",
+                "aaaaaaaaa",
+        };
+//        Scanner sc = new Scanner(System.in);
+//        String str = sc.nextLine();
+        for (String str : cases) {
+//            System.out.println("result: " + longestPalindrome(str));
+            System.out.println("result: " + findLongestPalindromeString(str));
+            System.out.println("result: " + maxPalindrome(str));
+        }
     }
 
     // from wechat
     // 预处理字符串，在两个字符之间加上#
     private static String preHandleString(String s) {
-        StringBuffer sb = new StringBuffer();
-        int len = s.length();
+        StringBuilder sb = new StringBuilder();
         sb.append('#');
-        for(int i = 0; i < len; i++) {
+        for(int i = 0; i < s.length(); i++) {
             sb.append(s.charAt(i));
             sb.append('#');
         }
@@ -102,7 +111,7 @@ public class Palindrome {
     }
 
     // 寻找最长回文字串
-    public static String findLongestPlalindromeString(String s) {
+    public static String findLongestPalindromeString(String s) {
         // 先预处理字符串
         String str = preHandleString(s);
         // 处理后的字串长度
@@ -156,11 +165,77 @@ public class Palindrome {
             }
         }
         // 去掉之前添加的#
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(int i = center - longestHalf + 1; i <= center + longestHalf; i += 2) {
             sb.append(str.charAt(i));
         }
         return sb.toString();
     }
 
+    public static String maxPalindrome(String str) {
+        StringBuilder sb = new StringBuilder("#");
+        for (char c : str.toCharArray()) {
+            sb.append(c).append("#");
+        }
+        str = sb.toString();
+        int maxCenter = 0;
+        int maxRadius = 0;
+        int rightmostCenter = 0;
+        int rightmostRadius = 0;
+        int[] radius = new int[str.length()];
+
+        for (int i = 0; i < str.length(); i++) {
+            int rightmost = rightmostCenter + rightmostRadius;
+            boolean needSwell = true;
+
+            if (i < rightmost) {
+                int mirror = 2 * rightmostCenter - i;
+                if (i + radius[mirror] < rightmost) {
+                    radius[i] = radius[mirror];
+                    needSwell = false;
+                } else {
+                    radius[i] = rightmost - i;
+                }
+            }
+            if (needSwell) {
+                radius[i] = swell(str, i, radius[i]);
+                if (i + radius[i] > rightmost) {
+                    rightmostCenter = i;
+                    rightmostRadius = radius[i];
+                }
+            }
+            if (radius[i] > maxRadius) {
+                maxRadius = radius[i];
+                maxCenter = i;
+            }
+        }
+        sb.setLength(0);
+        for (int i = maxCenter - maxRadius + 1; i < maxCenter + maxRadius; i++) {
+            if (str.charAt(i) != '#') {
+                sb.append(str.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    private static int swell(String str, int center, int radius) {
+        int left = center - radius - 1;
+        int right = center + radius + 1;
+        while (left >= 0 && right < str.length() && str.charAt(left) == str.charAt(right)) {
+            radius++;
+            left--;
+            right++;
+        }
+        return radius;
+    }
 }
+
+
+
+
+
+
+
+
+
+
