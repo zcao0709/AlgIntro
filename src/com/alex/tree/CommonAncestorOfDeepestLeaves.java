@@ -1,7 +1,6 @@
 package com.alex.tree;
 
 import com.alex.common.TreeNode;
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 
 import java.util.*;
 
@@ -9,9 +8,31 @@ import java.util.*;
  * Created by caozhennan on 2020/7/15 9:20 下午.
  */
 public class CommonAncestorOfDeepestLeaves {
+    HashMap<TreeNode, Integer> height = new HashMap<>();
+
     public TreeNode lcaDeepestLeaves(TreeNode root) {
         if (root == null) {
-            return root;
+            return null;
+        }
+        heightByPostOrder(root);
+        System.out.println(height);
+        int left = root.left == null ? 0 : height.get(root.left);
+        int right = root.right == null ? 0 : height.get(root.right);
+        while (left != right) {
+            if (left > right) {
+                root = root.left;
+            } else {
+                root = root.right;
+            }
+            left = root.left == null ? 0 : height.get(root.left);
+            right = root.right == null ? 0 : height.get(root.right);
+        }
+        return root;
+    }
+
+    public TreeNode lcaDeepestLeaves2(TreeNode root) {
+        if (root == null) {
+            return null;
         }
         HashMap<TreeNode, TreeNode> parent = new HashMap<>();
         List<TreeNode> queue = new LinkedList<>();
@@ -46,6 +67,15 @@ public class CommonAncestorOfDeepestLeaves {
             queue.addAll(set);
         }
         return queue.get(0);
+    }
+
+    private int heightByPostOrder(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int h = Math.max(heightByPostOrder(node.left), heightByPostOrder(node.right)) + 1;
+        height.put(node, h);
+        return h;
     }
 
     public static void main(String[] args) {
