@@ -10,9 +10,8 @@ import com.alex.common.TNode;
  * 将 N 原先的左子树，连接为新节点 v 的左子树；将 N 原先的右子树，连接为新节点 v 的右子树。
  * 如果 d 的值为 1，深度 d - 1 不存在，则创建一个新的根节点 v，原先的整棵树将作为 v 的左子树。
  *
- *
- 输入的深度值 d 的范围是：[1，二叉树最大深度 + 1]。
- 输入的二叉树至少有一个节点。
+ * 输入的深度值 d 的范围是：[1，二叉树最大深度 + 1]。
+ * 输入的二叉树至少有一个节点。
  */
 public class InsertRow {
     public TNode addOneRow(TNode root, int v, int d) {

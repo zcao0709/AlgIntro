@@ -1,5 +1,7 @@
 package com.alex.divideconquer;
 
+import java.util.Arrays;
+
 /**
  * Created by caozhennan on 2018/6/22.
  */
@@ -95,6 +97,25 @@ public class BinarySearch {
             }
         }
         return result;
+    }
+
+    public static int searchInsertPlace(int[] arr, int target) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int left = 0;
+        int right = arr.length - 1;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (arr[mid] > target) {
+                right = mid - 1;
+            } else if (arr[mid] < target) {
+                left = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return left;
     }
 
     public static void main(String[] args) {

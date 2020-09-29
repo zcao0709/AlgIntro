@@ -1,6 +1,6 @@
 package com.alex.misc;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Palindrome {
     // self revise the wechat' version, NOT a good version, abandoned
@@ -78,24 +78,6 @@ public class Palindrome {
             sb.append(s.charAt(i));
         }
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        String[] cases = {
-                "abcdcef",
-                "adaelele",
-                "cabadabae",
-                "aaaabcdefgfedcbaa",
-                "aaba",
-                "aaaaaaaaa",
-        };
-//        Scanner sc = new Scanner(System.in);
-//        String str = sc.nextLine();
-        for (String str : cases) {
-//            System.out.println("result: " + longestPalindrome(str));
-            System.out.println("result: " + findLongestPalindromeString(str));
-            System.out.println("result: " + maxPalindrome(str));
-        }
     }
 
     // from wechat
@@ -227,6 +209,113 @@ public class Palindrome {
             right++;
         }
         return radius;
+    }
+
+    private boolean isPalindrome(String s) {
+        return isPalindrome(s, 0, s.length()-1);
+    }
+
+    private boolean isPalindrome(String s, int left, int right) {
+        for (; left < right; left++, right--) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // brute
+    public List<List<Integer>> palindromePairs2(String[] words) {
+        List<List<Integer>> ret = new LinkedList<>();
+        if (words.length > 0) {
+            for (int i = 0; i < words.length; i++) {
+                palindromePairs(words, ret, i);
+            }
+        }
+        return ret;
+    }
+
+    private void palindromePairs(String[] words, List<List<Integer>> ret, int start) {
+        for (int j = start+1; j < words.length; j++) {
+            if (isPalindrome(words[start] + words[j])) {
+                List<Integer> r = new ArrayList<>(2);
+                r.add(start);
+                r.add(j);
+                ret.add(r);
+            }
+            if (isPalindrome(words[j] + words[start])) {
+                List<Integer> r = new ArrayList<>(2);
+                r.add(j);
+                r.add(start);
+                ret.add(r);
+            }
+        }
+    }
+
+    public List<List<Integer>> palindromePairs(String[] words) {
+        List<String> wordsRev = new ArrayList<>();
+        Map<String, Integer> indices = new HashMap<>();
+
+        int n = words.length;
+        for (String word: words) {
+            wordsRev.add(new StringBuffer(word).reverse().toString());
+        }
+        for (int i = 0; i < n; ++i) {
+            indices.put(wordsRev.get(i), i);
+        }
+
+        List<List<Integer>> ret = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String word = words[i];
+            int m = words[i].length();
+            if (m == 0) {
+                continue;
+            }
+            for (int j = 0; j < m; j++) {
+                if (isPalindrome(word, j, m - 1)) {
+                    int leftId = indices.getOrDefault(word.substring(0, j), -1);
+                    if (leftId != -1 && leftId != i) {
+                        ret.add(Arrays.asList(i, leftId));
+                    }
+                }
+                if (j != 0 && isPalindrome(word, 0, j - 1)) {
+                    int rightId = indices.getOrDefault(word.substring(j, m), -1);
+                    if (rightId != -1 && rightId != i) {
+                        ret.add(Arrays.asList(rightId, i));
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    public static void main(String[] args) {
+        String[] words = {
+                "abcd",
+                "dcba",
+                "lls",
+                "s",
+                "sssll",
+        };
+        List<List<Integer>> ret = new Palindrome().palindromePairs(words);
+        for (List<Integer> r : ret) {
+            System.out.println(r.get(0) + ", " + r.get(1));
+        }
+        System.out.println();
+
+        /*String[] cases = {
+                "abcdcef",
+                "adaelele",
+                "cabadabae",
+                "aaaabcdefgfedcbaa",
+                "aaba",
+                "aaaaaaaaa",
+        };
+        for (String str : cases) {
+//            System.out.println("result: " + longestPalindrome(str));
+            System.out.println("result: " + findLongestPalindromeString(str));
+            System.out.println("result: " + maxPalindrome(str));
+        }*/
     }
 }
 

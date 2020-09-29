@@ -1,5 +1,7 @@
 package com.alex.tree;
 
+import com.alex.common.TreeNode;
+
 import java.util.*;
 
 /**

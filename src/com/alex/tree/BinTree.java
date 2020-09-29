@@ -192,6 +192,24 @@ public class BinTree {
         return false;
     }
 
+    public static boolean isValidBST(TNode root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return true;
+        }
+        return isValidBST(root, null, null);
+    }
+
+    private static boolean isValidBST(TNode node, Integer min, Integer max) {
+        if (node == null) {
+            return true;
+        }
+        if ((min != null && node.value <= min) || (max != null && node.value >= max)) {
+            return false;
+        }
+        return isValidBST(node.left, min, node.value) &&
+                isValidBST(node.right, node.value, max);
+    }
+
     public static int findLongestRouteWithSum(TNode head, int sum) {
         if (head == null) {
             return 0;
@@ -264,14 +282,84 @@ public class BinTree {
         }
     }
 
+    public static boolean isSameTree(TNode p, TNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.value == q.value) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+        return false;
+    }
+
+    public static boolean isSubStructure(TNode a, TNode b) {
+        if (a == null || b == null) {
+            return false;
+        }
+        return isSubStructureR(a, b) || isSubStructure(a.left, b) || isSubStructure(a.right, b);
+    }
+
+    private static boolean isSubStructureR(TNode a, TNode b) {
+        if (b == null) {
+            return true;
+        } else if (a == null || a.value != b.value) {
+            return false;
+        } else {
+            return isSubStructureR(a.left, b.left) && isSubStructureR(a.right, b.right);
+        }
+    }
+
+    private static void tree2String(TNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append("#,");
+            return;
+        }
+        sb.append(node.value).append(",");
+        tree2String(node.left, sb);
+        tree2String(node.right, sb);
+    }
+
+    public static void BinTree2List(TNode root) {
+        if (root == null) {
+            return;
+        }
+        BinTree2List(root.right);
+        BinTree2List(root.left);
+        if (root.left != null) {
+            TNode r = root.right;
+            TNode n = root.left;
+            root.right = root.left;
+            while (n.right != null) {
+                n = n.right;
+            }
+            n.right = r;
+            root.left = null;
+        }
+    }
+
     public static void main(String[] args) {
-        BinaryTree tree = BinaryTree.valueOf(17);
-        TNode head = tree.root;
-        printByLevel(head);
+//        BinaryTree tree = BinaryTree.valueOf(17);
+//        TNode head = tree.root;
+//        printByLevel(head);
 //        printZigzag(head);
 //        printPreOrder(head);
 //        printInOrder(head);
 //        printPostOrder(head);
-        System.out.println(biggestBST(head));
+//        System.out.println(biggestBST(head));
+        TNode a = new TNode(10);
+        a.left = new TNode(12);
+        a.right = new TNode(6);
+        a.left.left = new TNode(8);
+        a.left.right = new TNode(3);
+        a.right.left = new TNode(11);
+
+        TNode b = new TNode(10);
+        b.left = new TNode(12);
+        b.right = new TNode(6);
+        b.left.left = new TNode(8);
+        isSubStructure(a, b);
     }
 }

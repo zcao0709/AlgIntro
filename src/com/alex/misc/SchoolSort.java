@@ -24,7 +24,7 @@ public class SchoolSort {
             //System.out.println();
         }
         for (int i = 0; i < candidate.size(); i++) {
-            List<String> tmp = new LinkedList<String>(candidate);
+            List<String> tmp = new LinkedList<>(candidate);
             getAllList(list, tmp, prefix + tmp.remove(i));
         }
     }
