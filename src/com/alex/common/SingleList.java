@@ -169,6 +169,39 @@ public class SingleList {
         return null;
     }
 
+    // https://blog.csdn.net/weixin_40807247/article/details/91447922
+    public Node circleStart2() {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        // must make sure fast travels twice of slow
+        Node fast = head.next.next;
+        Node slow = head.next;
+        boolean meet = false;
+        while (fast != null && fast.next != null) {
+            System.out.println("fast = " + fast);
+            System.out.println("slow = " + slow);
+            if (fast == slow) {
+                if (meet) {
+                    return fast;
+                }
+                if (head == fast) {
+                    return head;
+                }
+                fast = head;
+                meet = true;
+            }
+            if (meet) {
+                fast = fast.next;
+            } else {
+                fast = fast.next.next;
+            }
+            slow = slow.next;
+        }
+        return null;
+    }
+
+
     public int asInt() {
         int value = 0;
         Node n = head;
@@ -235,15 +268,24 @@ public class SingleList {
     }
 
     public static void main(String[] args) {
-        SingleList list = SingleList.create(14);
+        /*SingleList list = SingleList.create(14);
         System.out.println(list.toString());
 //        System.out.println(list.midNode());
 
         Node kth = list.kthBack(8);
         System.out.println(kth);
-        list.tail.next = kth;
+        list.tail.next = kth;*/
 
 //        System.out.println(list.hasCircle());
-        System.out.println(list.circleStart());
+        SingleList list2 = new SingleList();
+        list2.add(3);
+        list2.add(2);
+        list2.add(0);
+        list2.add(-4);
+        Node kth = list2.kthBack(3);
+        System.out.println(kth);
+        list2.tail.next = kth;
+
+        System.out.println(list2.circleStart2());
     }
 }
